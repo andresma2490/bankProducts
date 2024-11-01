@@ -1,0 +1,22 @@
+@import "../../../../styles/variables";
+
+button {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid $grey;
+
+  &.primary {
+    background: $primary;
+    &:hover {
+      background: $primary-200;
+    }
+  }
+
+  &.secondary {
+    background: $secondary;
+    &:hover {
+      background: $secondary-200;
+    }
+  }
+}

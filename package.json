@@ -7,13 +7,14 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint --fix src/**/*.{html,scss,ts,json}",
+    "lint": "eslint --fix src/**/*.{html,ts}",
     "format": "prettier --write src/**/*.{html,scss,ts,json}",
     "prepare": "husky"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
+    "@angular/cdk": "^17.3.10",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",

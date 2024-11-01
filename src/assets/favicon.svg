@@ -17,6 +17,6 @@
     stroke-linejoin="round"
   ></g>
   <g id="iconCircle">
-    <circle fill="#3b82f6" cx="18" cy="18" r="18"></circle>
+    <circle fill="#f5df66" cx="18" cy="18" r="18"></circle>
   </g>
 </svg>

@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <div class="d-flex justify-between align-center">
+    <app-input placeholder="Buscar..." [formControl]="searchInput"></app-input>
+    <app-button type="primary">Agregar</app-button>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="table-wrapper">
+      <table cdk-table [dataSource]="productsDataSource">
+        <tr *cdkHeaderRowDef="columnDefs" cdk-header-row></tr>
+        <tr *cdkRowDef="let row; columns: columnDefs" cdk-row></tr>
+        <ng-container cdkColumnDef="logo">
+          <th *cdkHeaderCellDef cdk-header-cell>Logo</th>
+          <td *cdkCellDef="let product" cdk-cell>
+            <img
+              class="product-logo"
+              [src]="product.logo"
+              [alt]="product.name"
+            />
+          </td>
+        </ng-container>
+        <ng-container cdkColumnDef="name">
+          <th *cdkHeaderCellDef cdk-header-cell>Nombre del producto</th>
+          <td *cdkCellDef="let product" cdk-cell>{{ product.name }}</td>
+        </ng-container>
+        <ng-container cdkColumnDef="description">
+          <th *cdkHeaderCellDef cdk-header-cell>Descripción</th>
+          <td *cdkCellDef="let product" cdk-cell>{{ product.description }}</td>
+          <ng-container cdkColumnDef="date_release">
+            <th *cdkHeaderCellDef cdk-header-cell>Fecha de liberación</th>
+            <td *cdkCellDef="let product" cdk-cell>
+              {{ product.date_release | date }}
+            </td>
+          </ng-container>
+          <ng-container cdkColumnDef="date_revision">
+            <th *cdkHeaderCellDef cdk-header-cell>Fecha de reestructuración</th>
+            <td *cdkCellDef="let product" cdk-cell>
+              {{ product.date_revision | date }}
+            </td>
+          </ng-container>
+        </ng-container>
+      </table>
+    </div>
+    <div class="paginator-wrapper">
+      <app-paginator
+        [length]="productsDataSource.getLength()"
+        [pageSize]="pageSize"
+        (pageChange)="getProductsPage($event, pageSize)"
+        (pageSizeChange)="getProductsPage(0, $event)"
+      ></app-paginator>
+    </div>
+  </div>
+</div>

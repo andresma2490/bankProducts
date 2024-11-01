@@ -1,0 +1,17 @@
+<div class="d-flex justify-between align-center gap-1">
+  <div class="d-flex justify-between align-center gap-1">
+    <button [disabled]="currentPage === 0" (click)="previousPage()">
+      Anterior
+    </button>
+    <button [disabled]="currentPage >= totalPages - 1" (click)="nextPage()">
+      Siguiente
+    </button>
+  </div>
+  <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+
+  <select name="pageSelector" id="pageSelector" (change)="setPageSize($event)">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+  </select>
+</div>

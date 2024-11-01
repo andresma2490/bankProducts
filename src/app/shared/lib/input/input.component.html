@@ -1,0 +1,12 @@
+<label class="d-block">
+  @if (label) {
+    <span>{{ label }}</span>
+  }
+  <input
+    type="text"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled"
+    (input)="handleInput($event)"
+    (blur)="handleBlur()"
+  />
+</label>
