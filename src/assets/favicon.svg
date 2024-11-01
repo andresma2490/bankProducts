@@ -1,0 +1,22 @@
+<svg
+  width="92px"
+  height="92px"
+  viewBox="0 0 36 36"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  aria-hidden="true"
+  role="img"
+  class=""
+  preserveAspectRatio="xMidYMid meet"
+  fill="#000000"
+>
+  <g id="bgCircle" stroke-width="0"></g>
+  <g
+    id="tracerCircle"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  ></g>
+  <g id="iconCircle">
+    <circle fill="#3b82f6" cx="18" cy="18" r="18"></circle>
+  </g>
+</svg>
