@@ -40,6 +40,30 @@
               {{ product.date_revision | date }}
             </td>
           </ng-container>
+          <ng-container cdkColumnDef="actions">
+            <th *cdkHeaderCellDef cdk-header-cell></th>
+            <td *cdkCellDef="let product" cdk-cell>
+              <button [cdkMenuTriggerFor]="menu" [cdkMenuPosition]="positions">
+                ⋮
+              </button>
+              <ng-template #menu>
+                <div class="example-menu" cdkMenu>
+                  <a
+                    class="example-menu-item"
+                    [routerLink]="['/products/update', product.id]"
+                    >Editar</a
+                  >
+                  <div
+                    cdkMenuItem
+                    class="example-menu-item"
+                    (click)="deleteProduct(product.id)"
+                  >
+                    Eliminar
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+          </ng-container>
         </ng-container>
       </table>
     </div>

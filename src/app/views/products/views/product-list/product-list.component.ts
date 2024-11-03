@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkMenu, CdkMenuTrigger } from '@angular/cdk/menu';
 import { DatePipe } from '@angular/common';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { PaginatorComponent } from '../../../../shared/lib/paginator/paginator.c
 import { ProductsService } from '../../../../core/services/products.service';
 import { DataSourceProduct } from './data-source';
 import { RouterLink } from '@angular/router';
+import { ConnectionPositionPair } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +19,8 @@ import { RouterLink } from '@angular/router';
   imports: [
     ReactiveFormsModule,
     CdkTableModule,
-    OverlayModule,
+    CdkMenuTrigger,
+    CdkMenu,
     DatePipe,
     RouterLink,
     InputComponent,
@@ -39,7 +41,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
     'description',
     'date_release',
     'date_revision',
+    'actions',
   ];
+  protected positions = [
+    new ConnectionPositionPair(
+      { originX: 'end', originY: 'bottom' },
+      { overlayX: 'end', overlayY: 'top' },
+    ),
+  ];
+
   protected pageSize = 5;
   protected isOpen = false;
 
@@ -67,5 +77,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if (!pageSize) pageSize = this.pageSize;
     this.pageSize = pageSize || 5;
     this.productsDataSource.getPage(page, pageSize!);
+  }
+
+  protected deleteProduct(productId: string) {
+    const deleteProduct = confirm(
+      `¿Estás seguro de que quieres eliminar el producto ${productId}?`,
+    );
+    if (deleteProduct) {
+      this.productsService.deleteProduct(productId).subscribe({
+        next: () => {
+          alert('Producto eliminado');
+        },
+        error: () => {
+          alert('Error al eliminar producto');
+        },
+      });
+    }
   }
 }

@@ -20,7 +20,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './product-form.component.scss',
 })
 export class ProductFormComponent implements OnInit {
-  @Output() createProduct = new EventEmitter<ProductInterface>();
+  @Output() saveProduct = new EventEmitter<ProductInterface>();
   private productsService = inject(ProductsService);
   private dateRevision = '';
 
@@ -67,7 +67,7 @@ export class ProductFormComponent implements OnInit {
     if (this.productForm.invalid) return;
     const formValue = this.productForm.value as unknown as ProductInterface;
     formValue.date_revision = this.dateRevision;
-    this.createProduct.emit(formValue);
+    this.saveProduct.emit(formValue);
   }
 
   protected handleReset() {

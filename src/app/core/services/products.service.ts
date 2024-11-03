@@ -28,4 +28,17 @@ export class ProductsService {
       `${environment.apiUrl}/products/verification/${id}`,
     );
   }
+
+  updateProduct(product: ProductInterface) {
+    return this.https.put<{ data: ProductInterface }>(
+      `${environment.apiUrl}/products/${product.id}`,
+      product,
+    );
+  }
+
+  deleteProduct(id: string) {
+    return this.https.delete<{ data: ProductInterface }>(
+      `${environment.apiUrl}/products/${id}`,
+    );
+  }
 }
