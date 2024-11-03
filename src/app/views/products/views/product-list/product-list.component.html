@@ -1,7 +1,9 @@
 <div class="wrapper">
   <div class="d-flex justify-between align-center">
     <app-input placeholder="Buscar..." [formControl]="searchInput"></app-input>
-    <app-button type="primary">Agregar</app-button>
+    <a [routerLink]="['/products/create']">
+      <app-button color="primary">Agregar</app-button>
+    </a>
   </div>
 
   <div class="content-wrapper">

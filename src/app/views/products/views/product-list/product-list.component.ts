@@ -3,13 +3,14 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DatePipe } from '@angular/common';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, Subject, takeUntil } from 'rxjs';
 
 import { InputComponent } from '../../../../shared/lib/input/input.component';
 import { ButtonComponent } from '../../../../shared/lib/button/button.component';
 import { PaginatorComponent } from '../../../../shared/lib/paginator/paginator.component';
 import { ProductsService } from '../../../../core/services/products.service';
 import { DataSourceProduct } from './data-source';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -19,6 +20,7 @@ import { DataSourceProduct } from './data-source';
     CdkTableModule,
     OverlayModule,
     DatePipe,
+    RouterLink,
     InputComponent,
     ButtonComponent,
     PaginatorComponent,
@@ -44,7 +46,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getProducts();
     this.searchInput.valueChanges
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$), debounceTime(300))
       .subscribe((val) => {
         this.productsDataSource.filter(val);
       });

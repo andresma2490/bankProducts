@@ -8,5 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() type: 'primary' | 'secondary' = 'primary';
+  @Input() color: 'primary' | 'secondary' = 'secondary';
+  @Input() type: 'submit' | 'button' = 'button';
 }

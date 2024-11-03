@@ -1,0 +1,115 @@
+<div class="form-wrapper">
+  <form [formGroup]="productForm">
+    <app-input
+      formControlName="id"
+      label="ID"
+      [error]="productForm.get('id')?.invalid && productForm.get('id')?.touched"
+    >
+      @if ((productForm.get("id")?.statusChanges | async) === "PENDING") {
+        <div class="warning-message">Verificando disponibilidad...</div>
+      }
+      @if (productForm.get("id")?.invalid && productForm.get("id")?.touched) {
+        @if (productForm.get("id")?.hasError("required")) {
+          <div class="error-message">El campo es obligatorio</div>
+        }
+        @if (productForm.get("id")?.hasError("idAlreadyInUse")) {
+          <div class="error-message">El ID ya está en uso</div>
+        }
+      }
+    </app-input>
+    <app-input
+      formControlName="name"
+      label="Nombre"
+      [error]="
+        productForm.get('name')?.invalid && productForm.get('name')?.touched
+      "
+    >
+      @if (
+        productForm.get("name")?.invalid && productForm.get("name")?.touched
+      ) {
+        @if (productForm.get("name")?.hasError("required")) {
+          <div class="error-message">El campo es obligatorio</div>
+        }
+        @if (
+          productForm.get("name")?.hasError("minlength") ||
+          productForm.get("name")?.hasError("maxlength")
+        ) {
+          <div class="error-message">
+            El campo debe tener entre 6 y 100 caracteres
+          </div>
+        }
+      }
+    </app-input>
+    <app-input
+      formControlName="description"
+      label="Descripción"
+      [error]="
+        productForm.get('description')?.invalid &&
+        productForm.get('description')?.touched
+      "
+    >
+      @if (
+        productForm.get("description")?.invalid &&
+        productForm.get("description")?.touched
+      ) {
+        @if (productForm.get("description")?.hasError("required")) {
+          <div class="error-message">El campo es obligatorio</div>
+        }
+        @if (
+          productForm.get("description")?.hasError("minlength") ||
+          productForm.get("description")?.hasError("maxlength")
+        ) {
+          <div class="error-message">
+            El campo debe tener entre 10 y 200 caracteres
+          </div>
+        }
+      }
+    </app-input>
+    <app-input
+      formControlName="logo"
+      label="Logo"
+      [error]="
+        productForm.get('logo')?.invalid && productForm.get('logo')?.touched
+      "
+    >
+      @if (
+        productForm.get("logo")?.invalid && productForm.get("logo")?.touched
+      ) {
+        @if (productForm.get("logo")?.hasError("required")) {
+          <div class="error-message">El campo es obligatorio</div>
+        }
+      }
+    </app-input>
+    <app-input
+      formControlName="date_release"
+      label="Fecha de liberación"
+      type="date"
+      [error]="
+        productForm.get('date_release')?.invalid &&
+        productForm.get('date_release')?.touched
+      "
+    >
+      @if (
+        productForm.get("date_release")?.invalid &&
+        productForm.get("date_release")?.touched
+      ) {
+        @if (productForm.get("date_release")?.hasError("required")) {
+          <div class="error-message">El campo es obligatorio</div>
+        }
+      }
+    </app-input>
+    <app-input
+      formControlName="date_revision"
+      label="Fecha de reestructuración"
+    ></app-input>
+
+    <div class="actions">
+      <app-button color="secondary" (click)="handleReset()">
+        Reiniciar
+      </app-button>
+      <app-button type="submit" color="primary" (click)="handleSubmit()">
+        Agregar
+      </app-button>
+    </div>
+  </form>
+</div>

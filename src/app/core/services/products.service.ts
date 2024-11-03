@@ -15,4 +15,17 @@ export class ProductsService {
       .get<{ data: ProductInterface[] }>(`${environment.apiUrl}/products`)
       .pipe(map((res) => res.data));
   }
+
+  public createProduct(product: ProductInterface) {
+    return this.https.post<{ data: ProductInterface }>(
+      `${environment.apiUrl}/products`,
+      product,
+    );
+  }
+
+  checkIdIsAvailable(id: string) {
+    return this.https.get<boolean>(
+      `${environment.apiUrl}/products/verification/${id}`,
+    );
+  }
 }

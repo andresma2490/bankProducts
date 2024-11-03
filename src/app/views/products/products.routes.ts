@@ -13,6 +13,13 @@ export const productsRoutes: Routes = [
             (c) => c.ProductListComponent,
           ),
       },
+      {
+        path: 'create',
+        loadComponent: () =>
+          import('./views/product-create/product-create.component').then(
+            (c) => c.ProductCreateComponent,
+          ),
+      },
     ],
   },
 ];
