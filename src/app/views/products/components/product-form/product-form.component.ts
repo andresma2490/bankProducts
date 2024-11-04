@@ -1,5 +1,15 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -12,6 +22,10 @@ import { checkIdIsAvailable } from '../../validators/id.validator';
 import { ProductsService } from '../../../../core/services/products.service';
 import { AsyncPipe } from '@angular/common';
 
+type ProductsControls = {
+  [key in keyof ProductInterface]: AbstractControl<ProductInterface[key]>;
+};
+
 @Component({
   selector: 'app-product-form',
   standalone: true,
@@ -19,8 +33,9 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss',
 })
-export class ProductFormComponent implements OnInit {
-  @Output() createProduct = new EventEmitter<ProductInterface>();
+export class ProductFormComponent implements OnInit, OnChanges {
+  @Input() formValue?: Partial<ProductInterface>;
+  @Output() saveProduct = new EventEmitter<ProductInterface>();
   private productsService = inject(ProductsService);
   private dateRevision = '';
 
@@ -32,12 +47,12 @@ export class ProductFormComponent implements OnInit {
     }),
     name: new FormControl('', [
       Validators.required,
-      Validators.minLength(6),
+      Validators.minLength(4),
       Validators.maxLength(100),
     ]),
     description: new FormControl('', [
       Validators.required,
-      Validators.minLength(10),
+      Validators.minLength(4),
       Validators.maxLength(200),
     ]),
     logo: new FormControl('', [Validators.required]),
@@ -46,14 +61,30 @@ export class ProductFormComponent implements OnInit {
       { value: this.dateRevision, disabled: true },
       [Validators.required],
     ),
-  });
+  } as ProductsControls);
 
   ngOnInit(): void {
     this.productForm.get('date_release')?.valueChanges.subscribe((val) => {
       if (!val) return;
-      this.dateRevision = this.AddYearToDate(val);
+      this.dateRevision = this.AddYearToDate(val as string);
       this.productForm.get('date_revision')?.setValue(this.dateRevision);
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formValue'] && this.formValue) {
+      this.updateFormValues(this.formValue);
+    }
+  }
+
+  private updateFormValues(formValue: Partial<ProductInterface>) {
+    this.productForm.patchValue(formValue);
+
+    const idControl = this.productForm.get('id');
+    // remove async validator from id control
+    idControl?.clearAsyncValidators();
+    idControl?.disable();
+    idControl?.updateValueAndValidity();
   }
 
   protected AddYearToDate(date: string) {
@@ -67,11 +98,15 @@ export class ProductFormComponent implements OnInit {
     if (this.productForm.invalid) return;
     const formValue = this.productForm.value as unknown as ProductInterface;
     formValue.date_revision = this.dateRevision;
-    this.createProduct.emit(formValue);
+    if (this.formValue?.id) {
+      formValue.id = this.formValue.id;
+    }
+    this.saveProduct.emit(formValue);
   }
 
   protected handleReset() {
     this.productForm.reset();
     this.productForm.get('date_revision')?.setValue(this.dateRevision);
+    this.productForm.get('id')?.setValue(this.formValue?.id ?? '');
   }
 }

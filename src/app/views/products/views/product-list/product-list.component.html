@@ -26,7 +26,7 @@
           <td *cdkCellDef="let product" cdk-cell>{{ product.name }}</td>
         </ng-container>
         <ng-container cdkColumnDef="description">
-          <th *cdkHeaderCellDef cdk-header-cell>Descripción</th>
+          <th *cdkHeaderCellDef cdk-header-cell width="30%">Descripción</th>
           <td *cdkCellDef="let product" cdk-cell>{{ product.description }}</td>
           <ng-container cdkColumnDef="date_release">
             <th *cdkHeaderCellDef cdk-header-cell>Fecha de liberación</th>
@@ -38,6 +38,37 @@
             <th *cdkHeaderCellDef cdk-header-cell>Fecha de reestructuración</th>
             <td *cdkCellDef="let product" cdk-cell>
               {{ product.date_revision | date }}
+            </td>
+          </ng-container>
+          <ng-container cdkColumnDef="actions">
+            <th *cdkHeaderCellDef cdk-header-cell></th>
+            <td *cdkCellDef="let product" cdk-cell>
+              <button
+                class="btnMenu"
+                [cdkMenuTriggerFor]="menu"
+                [cdkMenuPosition]="positions"
+              >
+                ⋮
+              </button>
+              <ng-template #menu>
+                <div class="example-menu" cdkMenu>
+                  <a
+                    class="example-menu-item"
+                    [routerLink]="['/products/update', product.id]"
+                    >Editar</a
+                  >
+                  <a
+                    cdkMenuItem
+                    role="button"
+                    tabindex="0"
+                    class="example-menu-item"
+                    (keydown.enter)="deleteProduct(product.id)"
+                    (click)="deleteProduct(product.id)"
+                  >
+                    Eliminar
+                  </a>
+                </div>
+              </ng-template>
             </td>
           </ng-container>
         </ng-container>

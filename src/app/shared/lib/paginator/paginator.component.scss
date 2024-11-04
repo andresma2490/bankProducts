@@ -1,0 +1,68 @@
+@import "../../../../styles/variables";
+
+/* Estilos generales para el contenedor del paginador */
+.paginator-container {
+  padding-bottom: 1rem;
+  overflow: auto;
+}
+
+/* Botones del paginador */
+button {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:not([disabled]) {
+    background-color: $secondary-200;
+  }
+
+  &[disabled] {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+  }
+}
+
+/* Botón activo */
+button.active {
+  background-color: $primary;
+  color: $text-light;
+  font-weight: bold;
+  cursor: default;
+
+  &:hover:not([disabled]) {
+    background-color: $primary-200;
+  }
+}
+
+/* Estilos para la paginación */
+.paginator-pages {
+  display: flex;
+  gap: 0.5rem;
+
+  button {
+    min-width: 40px;
+    text-align: center;
+  }
+}
+
+/* Selectores de páginas */
+select {
+  padding: 0.4rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 14px;
+
+  &:hover {
+    border-color: #a0a0a0;
+  }
+}
+
+/* Información de la página */
+.page-info {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}

@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="content">
+    <h2>{{ data.title }}</h2>
+    <p>{{ data.message }}</p>
+  </div>
+  <div class="actions">
+    <app-button color="secondary" (click)="close()">Cancelar</app-button>
+    <app-button color="primary" (click)="confirm()">Eliminar</app-button>
+  </div>
+</div>

@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
 import { ProductsService } from '../../../../core/services/products.service';
 import { ProductInterface } from '../../../../core/interfaces/product.interface';
+import { SnackBarService } from '../../../../shared/lib/snack-bar/snack-bar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-create',
@@ -12,6 +14,9 @@ import { ProductInterface } from '../../../../core/interfaces/product.interface'
 })
 export class ProductCreateComponent {
   private productsService = inject(ProductsService);
+  private snackbar = inject(SnackBarService);
+  private router = inject(Router);
+
   protected formValue?: ProductInterface;
 
   protected handleCreateProduct(formValue: ProductInterface) {
@@ -23,10 +28,11 @@ export class ProductCreateComponent {
     if (!this.formValue) return;
     this.productsService.createProduct(this.formValue).subscribe({
       next: () => {
-        alert('Producto creado');
+        this.snackbar.openSnackbar('Producto creado', 'success');
+        this.router.navigate(['/products']);
       },
       error: () => {
-        alert('Error al crear producto');
+        this.snackbar.openSnackbar('Error al crear producto', 'error');
       },
     });
   }

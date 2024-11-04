@@ -1,8 +1,21 @@
-<div class="d-flex justify-between align-center gap-1">
-  <div class="d-flex justify-between align-center gap-1">
+<div class="d-flex justify-between flex-wrap align-center gap-1">
+  <div class="paginator-container d-flex justify-between align-center gap-1">
     <button [disabled]="currentPage === 0" (click)="previousPage()">
       Anterior
     </button>
+
+    <!-- Botones de las páginas -->
+    <div class="d-flex gap-1">
+      @for (page of pages; track $index) {
+        <button
+          [class.active]="currentPage === +page"
+          (click)="goToPage(+page)"
+        >
+          {{ page === "..." ? "..." : +page + 1 }}
+        </button>
+      }
+    </div>
+
     <button [disabled]="currentPage >= totalPages - 1" (click)="nextPage()">
       Siguiente
     </button>

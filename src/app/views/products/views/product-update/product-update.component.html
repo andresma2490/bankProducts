@@ -1,0 +1,8 @@
+<div class="content-wrapper">
+  <h1>Formulario de Actualización</h1>
+  <hr />
+  <app-product-form
+    [formValue]="product"
+    (saveProduct)="handleUpdateProduct($event)"
+  ></app-product-form>
+</div>

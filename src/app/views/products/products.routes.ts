@@ -20,6 +20,13 @@ export const productsRoutes: Routes = [
             (c) => c.ProductCreateComponent,
           ),
       },
+      {
+        path: 'update/:id',
+        loadComponent: () =>
+          import('./views/product-update/product-update.component').then(
+            (c) => c.ProductUpdateComponent,
+          ),
+      },
     ],
   },
 ];

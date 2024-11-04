@@ -1,6 +1,6 @@
 @import "../../../../../styles/variables";
 
-.wrapper{
+.wrapper {
   margin: 2rem 0;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,19 @@
   }
 }
 
+.btnMenu {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $secondary-200;
+  }
+}
+
 .example-menu {
   display: inline-flex;
   flex-direction: column;
@@ -34,6 +47,7 @@
   max-width: 280px;
   background-color: rgba(255, 255, 255);
   padding: 6px 0;
+  border: solid 1px $grey;
 }
 
 .example-menu-item,
@@ -42,7 +56,6 @@
   cursor: pointer;
   border: none;
 
-  user-select: none;
   min-width: 64px;
   line-height: 36px;
   padding: 0 16px;
@@ -67,6 +80,6 @@
 .example-standalone-item:hover {
   background-color: rgb(208, 208, 208);
 }
-.example-standalone-item[aria-expanded='true'] {
+.example-standalone-item[aria-expanded="true"] {
   background-color: rgb(208, 208, 208);
 }

@@ -41,5 +41,10 @@ export class DataSourceProduct extends DataSource<ProductInterface> {
     return this.filteredData.length;
   }
 
+  delete(id: string) {
+    this.initialData = this.initialData.filter((product) => product.id !== id);
+    this.filteredData = this.initialData;
+  }
+
   disconnect(): void {}
 }

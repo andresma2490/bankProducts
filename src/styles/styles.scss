@@ -2,6 +2,8 @@
 @import "variables";
 @import "_utilities";
 
+@import '@angular/cdk/overlay-prebuilt.css';
+
 body {
   background: $background-light;
   color: $text-light;
@@ -16,7 +18,6 @@ h1 {
   font-size: 2rem;
   font-weight: bold;
 }
-
 
 table[cdk-table] {
   width: 100%;
@@ -34,6 +35,7 @@ table[cdk-table] {
     align-content: center;
     background: $secondary;
     font-weight: bold;
+    text-wrap: nowrap;
   }
 }
 

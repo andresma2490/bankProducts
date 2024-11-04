@@ -1,0 +1,9 @@
+<div
+  class="snackbar snackbar-success"
+  [class.snackbar-success]="type === 'success'"
+  [class.snackbar-error]="type === 'error'"
+  [class.snackbar-info]="type === 'info'"
+  [class.snackbar-warning]="type === 'warning'"
+>
+  <span>{{ message }}</span>
+</div>
