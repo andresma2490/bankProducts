@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["api/*"],
+  "ignorePatterns": ["functions/*"],
   "overrides": [
     {
       "files": ["*.ts"],
